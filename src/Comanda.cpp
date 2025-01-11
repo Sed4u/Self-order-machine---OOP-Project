@@ -128,10 +128,12 @@ void Comanda::confirmaComanda(Staff &staff) {
         else {
             cout << "Comanda invalida! Comanda ta a fost anulata!\n";
             count--;
+            delete this;
         }
     } else if (optiune == 2) {
         cout << "Comanda a fost anulata!\n";
         count--;
+        delete this;
     }
 }
 
