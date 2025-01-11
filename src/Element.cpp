@@ -8,7 +8,8 @@
 #include <string>
 unsigned int Element::count = 0;
 
-Element::Element(string nume, float kcal, float pret) : id_e(++count), nume(std::move(nume)), kcal(kcal), pret(pret) {}
+Element::Element(string nume, float kcal, float pret) : id_e(++count), nume(std::move(nume)), kcal(kcal), pret(pret) {
+}
 
 Element::Element(const Element &other) {
     this->id_e = other.id_e;
@@ -28,25 +29,25 @@ Element &Element::operator=(const Element &other) {
     return *this;
 }
 
-ostream& operator<<(std::ostream &os, const Element &e) {
+ostream &operator<<(std::ostream &os, const Element &e) {
     return e.print(os);
 }
 
-istream& operator>>(istream& is, Element& e) {
+istream &operator>>(istream &is, Element &e) {
     return e.read(is);
 }
 
-vector<Element*> Element::operator+(vector<Element*>& lista_elemente) {
+vector<Element *> Element::operator+(vector<Element *> &lista_elemente) {
     lista_elemente.push_back(this);
     return lista_elemente;
 }
 
 
-bool operator<(const Element& e1, const Element& e2) {
+bool operator<(const Element &e1, const Element &e2) {
     return e1.pret < e2.pret;
 }
 
-bool operator>(const Element& e1, const Element& e2) {
+bool operator>(const Element &e1, const Element &e2) {
     return e1.pret > e2.pret;
 }
 
@@ -60,7 +61,7 @@ float Element::getPret() const {
     return pret;
 }
 
-const string& Element::getNume() const {
+const string &Element::getNume() const {
     return nume;
 }
 
@@ -69,26 +70,26 @@ float Element::getKcal() const {
 }
 
 void Element::setPret(float p) {
-    this->pret=p;
+    this->pret = p;
 }
 
 void Element::setNume(const string &n) {
-    this->nume=n;
+    this->nume = n;
 }
 
 void Element::setKcal(float k) {
-    this->kcal=k;
+    this->kcal = k;
 }
 
 
-ostream& Element::print(ostream& os) const {
-    os << "ID: " << id_e << ", Nume: " << nume << ", Kcal: "<< kcal <<", Pret: " << pret << " lei";
+ostream &Element::print(ostream &os) const {
+    os << "ID: " << id_e << ", Nume: " << nume << ", Kcal: " << kcal << ", Pret: " << pret << " lei";
     return os;
 }
 
-istream& Element::read(istream& is) {
-    cout<<"Nume element: ";
-    if(cin.peek() == '\n')
+istream &Element::read(istream &is) {
+    cout << "Nume element: ";
+    if (cin.peek() == '\n')
         cin.get();
     getline(is, nume);
 
@@ -97,7 +98,7 @@ istream& Element::read(istream& is) {
     while (ok == false) {
         try {
             if (ok1 == false) {
-                cout<<"Kcal: ";
+                cout << "Kcal: ";
                 is >> kcal;
                 if (kcal < 0) {
                     throw invalid_argument("Kcal nu poate fi negativ!");
@@ -111,7 +112,7 @@ istream& Element::read(istream& is) {
             }
             ok = true;
         } catch (invalid_argument &err) {
-            cout<<"Eroare: "<<err.what()<<endl;
+            cout << "Eroare: " << err.what() << endl;
         }
     }
     return is;

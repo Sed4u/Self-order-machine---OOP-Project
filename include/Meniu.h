@@ -3,10 +3,13 @@
 #define MENIU_H
 #include "Element.h"
 #include <vector>
+
 class Meniu {
-    vector <Element*> lista;
+    vector<Element *> lista;
     static Meniu *instance;
+
     Meniu() = default;
+
 public:
     static Meniu *get_instance() {
         if (instance == nullptr) {
@@ -14,9 +17,11 @@ public:
         }
         return instance;
     }
+
     void afisare_meniu() const;
+
     ~Meniu();
 
-    [[nodiscard]] vector<Element*>& get_lista();
+    [[nodiscard]] vector<Element *> &get_lista();
 };
 #endif //MENIU_H

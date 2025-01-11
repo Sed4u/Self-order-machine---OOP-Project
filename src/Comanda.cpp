@@ -5,14 +5,15 @@ using namespace std;
 
 unsigned int Comanda::count = 0;
 
-Comanda::Comanda() : id_c(++count), status(false), locatie(false), total(0) {}
+Comanda::Comanda() : id_c(++count), status(false), locatie(false), total(0) {
+}
 
 
 void Comanda::adauga_element(Meniu *meniu, const unsigned int id) {
     auto lista_elemente = meniu->get_lista();
-    const Element* found_elem = nullptr;
+    Element *found_elem = nullptr;
 
-    for (auto* e : lista_elemente) {
+    for (auto *e: lista_elemente) {
         if (e->getId() == id) {
             found_elem = e;
             break;
@@ -47,8 +48,7 @@ void Comanda::adauga_element(Meniu *meniu, const unsigned int id) {
             cout << found_elem->getNume() << " - Cantitate: ";
             cin >> cantitate;
 
-            auto* element = new Element(*found_elem);
-            lista.emplace_back(element, cantitate);
+            lista.emplace_back(found_elem, cantitate);
         }
     } else {
         cout << "Elementul cu id-ul " << id << " nu a fost gasit!" << endl;
@@ -56,12 +56,12 @@ void Comanda::adauga_element(Meniu *meniu, const unsigned int id) {
 }
 
 void Comanda::setLocatie(bool l) {
-    this->locatie=l;
+    this->locatie = l;
 }
 
 void Comanda::calculeazaTotal() {
     total = 0;
-    for(const auto& [element, cantitate] : lista) {
+    for (const auto &[element, cantitate]: lista) {
         total += element->getPret() * static_cast<float>(cantitate);
     }
 }
@@ -69,15 +69,16 @@ void Comanda::calculeazaTotal() {
 
 void Comanda::afiseazaComanda() {
     calculeazaTotal();
-    cout<<"Detalii comanda " << id_c << ":\n";
-    locatie?(cout<<"la pachet - "):(cout<<"in restaurant - ");
-    status?(cout<<"GATA!"):(cout<<"IN PREGATIRE...");
+    cout << "Detalii comanda " << id_c << ":\n";
+    cout << "Servire: ";
+    locatie ? (cout << "La pachet") : (cout << "In restaurant");
     cout << "\nTotal: " << total << " lei\n";
-    sort(lista.begin(), lista.end(), [](const pair<Element*, unsigned int>& a, const pair<Element*, unsigned int>& b) {
-        return *(a.first) > *(b.first);
-    });
-    for(const auto& [element, cantitate] : lista) {
-        cout << *element << "  x "<< cantitate << endl;
+    sort(lista.begin(), lista.end(),
+         [](const pair<Element *, unsigned int> &a, const pair<Element *, unsigned int> &b) {
+             return *(a.first) > *(b.first);
+         });
+    for (const auto &[element, cantitate]: lista) {
+        cout << *element << "  x " << cantitate << endl;
     }
 }
 
@@ -87,9 +88,9 @@ void Comanda::modificaCantitate() {
     unsigned int id;
     cin >> id;
 
-    pair<Element*, unsigned int>* found_elem = nullptr;
+    pair<Element *, unsigned int> *found_elem = nullptr;
 
-    for (auto& e : lista) {
+    for (auto &e: lista) {
         if (e.first->getId() == id) {
             found_elem = &e;
             break;
@@ -103,36 +104,42 @@ void Comanda::modificaCantitate() {
 
         if (cantitate == 0) {
             delete found_elem->first;
-            lista.erase(remove_if(lista.begin(), lista.end(),[found_elem](const pair<Element*, unsigned int>& e) {return &e == found_elem;}), lista.end());
+            lista.erase(remove_if(lista.begin(), lista.end(), [found_elem](const pair<Element *, unsigned int> &e) {
+                return &e == found_elem;
+            }), lista.end());
         } else {
             found_elem->second = cantitate;
         }
-    }
-    else {
-        cout<<"Elementul cu ID-ul " << id << " nu a fost gasit!";
+    } else {
+        cout << "Elementul cu ID-ul " << id << " nu a fost gasit!";
     }
 }
 
 
-void Comanda::confirmaComanda(Staff& staff) {
-    cout<< "\t1. Plateste\n\t2. Anuleaza comanda\n";
+void Comanda::confirmaComanda(Staff &staff) {
+    cout << "\t1. Plateste\n\t2. Anuleaza comanda\n";
     unsigned int optiune;
-    cout<<"Opriune: ";
-    cin>>optiune;
-    if(optiune == 1) {
-        cout<<"Comanda va fi gata in cateva minute. Pofta buna!\n";
-        staff.adaugaComanda(this);
-    }
-    else
-        if(optiune == 2) {
-            cout<<"Comanda a fost anulata!\n";
+    cout << "Opriune: ";
+    cin >> optiune;
+    if (optiune == 1) {
+        if(total > 0) {
+            cout << "Comanda va fi gata in cateva minute. Pofta buna!\n";
+            staff.adaugaComanda(this);
+        }
+        else {
+            cout << "Comanda invalida! Comanda ta a fost anulata!\n";
             count--;
             delete this;
         }
+    } else if (optiune == 2) {
+        cout << "Comanda a fost anulata!\n";
+        count--;
+        delete this;
+    }
 }
 
 Comanda::~Comanda() {
-    for (const auto& pair : lista) {
+    for (const auto &pair: lista) {
         delete pair.first;
     }
     lista.clear();

@@ -1,15 +1,16 @@
 #include "Staff.h"
-#include "Mancare.h"
-#include "Bautura.h"
 #include <algorithm>
+
+#include "Produs.h"
 using namespace std;
 
 Staff Staff::staffInstance;
 
-Staff::Staff() : meniu(Meniu::get_instance()) {}
+Staff::Staff() : meniu(Meniu::get_instance()) {
+}
 
 Staff::~Staff() {
-    for (const auto comanda : comenzi) {
+    for (const auto comanda: comenzi) {
         delete comanda;
     }
     meniu = nullptr;
@@ -17,14 +18,16 @@ Staff::~Staff() {
 
 void Staff::afiseazaComenzi() const {
     cout << "-------------------------Comenzi-------------------------\n";
-    for(const auto&i : comenzi) {
+    for (const auto &i: comenzi) {
         i->afiseazaComanda();
-        cout<<endl<<endl;
+        cout << "Status comanda: ";
+        i->status ? (cout << "GATA!") : (cout << "IN PREGATIRE...");
+        cout << endl << endl;
     }
     cout << "---------------------------------------------------------\n";
 }
 
-void Staff::adaugaComanda(Comanda* comanda) {
+void Staff::adaugaComanda(Comanda *comanda) {
     comenzi.push_back(comanda);
 }
 
@@ -34,9 +37,9 @@ void Staff::setStatus() {
     unsigned int id;
     cin >> id;
 
-    Comanda* found_comanda = nullptr;
+    Comanda *found_comanda = nullptr;
 
-    for (auto* c : comenzi) {
+    for (auto *c: comenzi) {
         if (c->id_c == id) {
             found_comanda = c;
             break;
@@ -50,10 +53,12 @@ void Staff::setStatus() {
         cout << "Optiune: ";
         cin >> optiune;
 
-        if (optiune == 2) { // Gata
+        if (optiune == 2) {
+            // Gata
             found_comanda->status = true;
             cout << "Comanda cu ID-ul " << id << " a fost setata la Gata." << endl;
-        } else if (optiune == 1) { // in pregatire
+        } else if (optiune == 1) {
+            // in pregatire
             found_comanda->status = false;
             cout << "Comanda cu ID-ul " << id << " a fost setata la In pregatire." << endl;
         }
@@ -67,9 +72,9 @@ void Staff::modificaElement() const {
     unsigned int id;
     cin >> id;
 
-    Element* found_elem = nullptr;
+    Element *found_elem = nullptr;
 
-    for (auto* e : meniu->get_lista()) {
+    for (auto *e: meniu->get_lista()) {
         if (e->getId() == id) {
             found_elem = e;
             break;
@@ -78,19 +83,11 @@ void Staff::modificaElement() const {
 
     if (found_elem != nullptr) {
         cout << "Vei modifica datele elementului:\n";
-        cout << "Nume: " << found_elem->getNume() << ", Kcal: " << found_elem->getKcal()
-             << ", Pret: " << found_elem->getPret() << " lei, ";
-
-        if (const auto* bautura = dynamic_cast<Bautura*>(found_elem)) {
-            cout << "Mililitri: " << bautura->getMililitri() << " ml" << endl;
-        }
-        else if (const auto* mancare = dynamic_cast<Mancare*>(found_elem)) {
-            cout << "Grame: " << mancare->getGrame() << " g" << endl;
-        }
+        cout << found_elem;
 
         cout << "Introduceti noul nume: ";
         string nou_nume;
-        if(cin.peek() == '\n')
+        if (cin.peek() == '\n')
             cin.get();
         getline(cin, nou_nume);
         found_elem->setNume(nou_nume);
@@ -106,17 +103,16 @@ void Staff::modificaElement() const {
         found_elem->setPret(nou_pret);
 
 
-        if (auto* bautura = dynamic_cast<Bautura*>(found_elem)) {
+        if (auto *bautura = dynamic_cast<Produs<Bautura> *>(found_elem)) {
             cout << "Introduceti noul numar de mililitri: ";
             unsigned int noi_mililitri;
             cin >> noi_mililitri;
-            bautura->setMililitri(noi_mililitri);
-        }
-        else if (auto* mancare = dynamic_cast<Mancare*>(found_elem)) {
+            bautura->setUnitati(noi_mililitri);
+        } else if (auto *mancare = dynamic_cast<Produs<Mancare> *>(found_elem)) {
             cout << "Introduceti noul numar de grame: ";
             unsigned int noi_grame;
             cin >> noi_grame;
-            mancare->setGrame(noi_grame);
+            mancare->setUnitati(noi_grame);
         }
     } else {
         cout << "Elementul cu ID-ul " << id << " nu a fost gasit." << endl;
@@ -129,8 +125,8 @@ void Staff::stergeElement() const {
     unsigned int id;
     cin >> id;
 
-    Element* found_elem = nullptr;
-    for (auto* e : meniu->get_lista()) {
+    Element *found_elem = nullptr;
+    for (auto *e: meniu->get_lista()) {
         if (e->getId() == id) {
             found_elem = e;
             break;
@@ -138,7 +134,9 @@ void Staff::stergeElement() const {
     }
 
     if (found_elem != nullptr) {
-        meniu->get_lista().erase(std::remove_if(meniu->get_lista().begin(), meniu->get_lista().end(), [found_elem](const Element* e) { return e == found_elem; }), meniu->get_lista().end());
+        meniu->get_lista().erase(std::remove_if(meniu->get_lista().begin(), meniu->get_lista().end(),
+                                                [found_elem](const Element *e) { return e == found_elem; }),
+                                 meniu->get_lista().end());
         delete found_elem;
 
         cout << "Elementul cu ID-ul " << id << " a fost sters!" << endl;
@@ -148,12 +146,12 @@ void Staff::stergeElement() const {
 }
 
 void Staff::afiseazaStatusComenzi() const {
-    cout<<"---------Comenzi---------"<<endl;
-    for(const auto& i : comenzi) {
-        cout<<"Comanda "<<i->id_c<<" - ";
-        i->status?(cout<<"GATA!"):(cout<<"IN PREGATIRE...");
-        cout<<endl;
+    cout << "---------Comenzi---------" << endl;
+    for (const auto &i: comenzi) {
+        cout << "Comanda " << i->id_c << " - ";
+        i->status ? (cout << "GATA!") : (cout << "IN PREGATIRE...");
+        cout << endl;
     }
-    cout<<"-------------------------"<<endl;
+    cout << "-------------------------" << endl;
 }
 
