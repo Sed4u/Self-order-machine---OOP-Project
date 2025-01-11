@@ -1,4 +1,20 @@
-# Nu primesc notă pentru că nu am pus titlu și descriere
+# Automat pentru comandarea de mâncare fast food
+
+## Descriere funcționaliăți proiect
+## Funcționalități clienți:
+- permiterea plasării comenzilor
+- alegerea locației servirii (în restaurant/la pachet)
+- posibilitatea adăugării produselor disponibile în comanda curentă
+- posibilitatea modificării/ștergerii produselor din comandă
+- plata/anularea comenzii
+- vizualizarea statusului comenzii (gata/în pregătire)
+
+## Funcționalități angajați:
+- accesul utilizând o parolă (ciscosecpa55)
+- opțiune de adăugare a unui nou element în meniu
+- opțiune de modificare a unui element existent în meniu
+- opțiunte pentru ștergerea unui element din meniu
+- update-ul status-ului unei comenzi (gata/în pregătire)
 
 ## Instrucțiuni de compilare
 

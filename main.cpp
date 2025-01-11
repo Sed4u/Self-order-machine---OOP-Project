@@ -8,8 +8,3 @@ int main() {
     Interfata::run(meniu, staff);
     return 0;
 }
-
-
-//TO DO: fa clasa template din mancare si bautura
-//TO DO: fa o functie virtuala care sa faca ceva
-//TO DO: adauga inca un design pattern

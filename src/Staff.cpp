@@ -13,6 +13,7 @@ Staff::~Staff() {
     for (const auto comanda: comenzi) {
         delete comanda;
     }
+    comenzi.clear();
     meniu = nullptr;
 }
 
@@ -83,7 +84,7 @@ void Staff::modificaElement() const {
 
     if (found_elem != nullptr) {
         cout << "Vei modifica datele elementului:\n";
-        cout << found_elem;
+        cout << *found_elem << endl;
 
         cout << "Introduceti noul nume: ";
         string nou_nume;
