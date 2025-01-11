@@ -20,7 +20,7 @@ void Interfata::populeazaMeniu(Meniu *meniu) {
         new Produs<Mancare>("McWrap Crispy", 479, 19.00, 215),
         new Produs<Mancare>("Cartofi prajiti", 320, 9.50, 117),
         new Produs<Mancare>("McMuffin cu Ou si Bacon", 295, 12.00, 113),
-        new Produs<Mancare>("McToast", 265, 6.50, 102),
+        new Produs<Mancare>("McToast", 265, 6.50, 102)
     };
     for (size_t i = 0; i < mancare.size(); ++i) {
         meniu->get_lista() = *mancare[i] + meniu->get_lista();
@@ -93,7 +93,7 @@ void Interfata::run(Meniu *meniu, Staff &staff) {
                             break;
                         case 3:
                             cout << "Inca putin si am terminat! (default anuleaza comanda)\n";
-                            comanda->confirmaComanda(staff);
+                            comanda->confirmaComanda(staff,comanda);
                             cmd = true;
                             break;
                         default:

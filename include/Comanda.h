@@ -28,7 +28,7 @@ public:
 
     void modificaCantitate();
 
-    void confirmaComanda(Staff &staff);
+    void confirmaComanda(Staff &staff, Comanda *comanda);
 
     ~Comanda();
 

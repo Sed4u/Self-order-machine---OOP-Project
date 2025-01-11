@@ -115,7 +115,7 @@ void Comanda::modificaCantitate() {
 }
 
 
-void Comanda::confirmaComanda(Staff &staff) {
+void Comanda::confirmaComanda(Staff &staff, Comanda *comanda) {
     cout << "\t1. Plateste\n\t2. Anuleaza comanda\n";
     unsigned int optiune;
     cout << "Optiune: ";
@@ -128,10 +128,12 @@ void Comanda::confirmaComanda(Staff &staff) {
         else {
             cout << "Comanda invalida! Comanda ta a fost anulata!\n";
             count--;
+            delete comanda;
         }
     } else if (optiune == 2) {
         cout << "Comanda a fost anulata!\n";
         count--;
+        delete comanda;
     }
 }
 
