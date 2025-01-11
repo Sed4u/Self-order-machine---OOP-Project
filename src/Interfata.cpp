@@ -93,7 +93,7 @@ void Interfata::run(Meniu *meniu, Staff &staff) {
                             break;
                         case 3:
                             cout << "Inca putin si am terminat! (default anuleaza comanda)\n";
-                            comanda->confirmaComanda(staff,comanda);
+                            comanda->confirmaComanda(staff);
                             cmd = true;
                             break;
                         default:
