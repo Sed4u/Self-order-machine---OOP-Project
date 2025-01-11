@@ -134,9 +134,8 @@ void Staff::stergeElement() const {
     }
 
     if (found_elem != nullptr) {
-        meniu->get_lista().erase(std::remove_if(meniu->get_lista().begin(), meniu->get_lista().end(),
-                                                [found_elem](const Element *e) { return e == found_elem; }),
-                                 meniu->get_lista().end());
+        auto it = std::remove(meniu->get_lista().begin(), meniu->get_lista().end(), found_elem);
+        meniu->get_lista().erase(it, meniu->get_lista().end());
         delete found_elem;
 
         cout << "Elementul cu ID-ul " << id << " a fost sters!" << endl;
