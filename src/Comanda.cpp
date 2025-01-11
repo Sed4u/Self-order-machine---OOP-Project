@@ -8,7 +8,6 @@ unsigned int Comanda::count = 0;
 Comanda::Comanda() : id_c(++count), status(false), locatie(false), total(0) {
 }
 
-
 void Comanda::adauga_element(Meniu *meniu, const unsigned int id) {
     auto lista_elemente = meniu->get_lista();
     Element *found_elem = nullptr;
@@ -46,7 +45,6 @@ void Comanda::adauga_element(Meniu *meniu, const unsigned int id) {
             unsigned int cantitate;
             cout << found_elem->getNume() << " - Cantitate: ";
             cin >> cantitate;
-
             lista.emplace_back(found_elem, cantitate);
         }
     } else {
@@ -137,8 +135,5 @@ void Comanda::confirmaComanda(Staff &staff) {
 }
 
 Comanda::~Comanda() {
-    for (const auto &pair: lista) {
-        delete pair.first;
-    }
     lista.clear();
 }

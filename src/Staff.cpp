@@ -126,7 +126,8 @@ void Staff::stergeElement() const {
     cin >> id;
 
     Element *found_elem = nullptr;
-    for (auto *e: meniu->get_lista()) {
+    auto& lista_elemente = meniu->get_lista();
+    for (auto *e: lista_elemente) {
         if (e->getId() == id) {
             found_elem = e;
             break;
@@ -134,10 +135,17 @@ void Staff::stergeElement() const {
     }
 
     if (found_elem != nullptr) {
-        meniu->get_lista().erase(std::remove(meniu->get_lista().begin(), meniu->get_lista().end(), found_elem),
-                                  meniu->get_lista().end());
-        delete found_elem;
+        lista_elemente.erase(std::remove(lista_elemente.begin(), lista_elemente.end(), found_elem), lista_elemente.end());
 
+        for (auto& comanda : comenzi) {
+            auto& comanda_lista = comanda->lista;
+            comanda_lista.erase(std::remove_if(comanda_lista.begin(), comanda_lista.end(),
+                [found_elem](const pair<Element*, unsigned int>& e) {
+                    return e.first == found_elem;
+                }), comanda_lista.end());
+        }
+
+        delete found_elem;
         cout << "Elementul cu ID-ul " << id << " a fost sters!" << endl;
     } else {
         cout << "Elementul cu ID-ul " << id << " nu a fost gasit!" << endl;
