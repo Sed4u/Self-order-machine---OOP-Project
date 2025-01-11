@@ -13,7 +13,7 @@ void Comanda::adauga_element(Meniu *meniu, const unsigned int id) {
     auto lista_elemente = meniu->get_lista();
     Element *found_elem = nullptr;
 
-    for (auto *e: lista_elemente) {
+    for (auto *e : lista_elemente) {
         if (e->getId() == id) {
             found_elem = e;
             break;
@@ -47,8 +47,7 @@ void Comanda::adauga_element(Meniu *meniu, const unsigned int id) {
             cout << found_elem->getNume() << " - Cantitate: ";
             cin >> cantitate;
 
-            auto * point = found_elem;
-            lista.emplace_back(point, cantitate);
+            lista.emplace_back(found_elem, cantitate);
         }
     } else {
         cout << "Elementul cu id-ul " << id << " nu a fost gasit!" << endl;
@@ -88,9 +87,9 @@ void Comanda::modificaCantitate() {
     unsigned int id;
     cin >> id;
 
-    pair<Element *, unsigned int> *found_elem = nullptr;
+    pair<Element*, unsigned int>* found_elem = nullptr;
 
-    for (auto &e: lista) {
+    for (auto& e : lista) {
         if (e.first->getId() == id) {
             found_elem = &e;
             break;
@@ -103,8 +102,8 @@ void Comanda::modificaCantitate() {
         cin >> cantitate;
 
         if (cantitate == 0) {
-            lista.erase(remove_if(lista.begin(), lista.end(), [found_elem](const pair<Element *, unsigned int> &e) {
-                return &e == found_elem;
+            lista.erase(remove_if(lista.begin(), lista.end(), [found_elem](const pair<Element*, unsigned int>& e) {
+                return e.first->getId() == found_elem->first->getId();
             }), lista.end());
         } else {
             found_elem->second = cantitate;
