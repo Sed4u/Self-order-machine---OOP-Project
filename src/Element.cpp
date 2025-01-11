@@ -88,7 +88,7 @@ ostream &Element::print(ostream &os) const {
 }
 
 istream &Element::read(istream &is) {
-    cout << "Nume element: ";
+    cout << "Nume: ";
     if (cin.peek() == '\n')
         cin.get();
     getline(is, nume);

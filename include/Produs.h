@@ -54,10 +54,6 @@ public:
         this->unitati = uni;
     }
 
-    [[nodiscard]] unsigned int getUnitati() const {
-        return this->unitati;
-    };
-
     [[nodiscard]] string eSanatos() const override {
         return getKcal() < 300 ? "(Optiune usoara)" : "(Bogat in calorii)";
     }

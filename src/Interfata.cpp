@@ -21,13 +21,6 @@ void Interfata::populeazaMeniu(Meniu *meniu) {
         new Produs<Mancare>("Cartofi prajiti", 320, 9.50, 117),
         new Produs<Mancare>("McMuffin cu Ou si Bacon", 295, 12.00, 113),
         new Produs<Mancare>("McToast", 265, 6.50, 102),
-        new Produs<Mancare>("Coca-Cola", 112, 7.00, 250),
-        new Produs<Mancare>("Fanta", 105, 7.00, 250),
-        new Produs<Mancare>("Sprite", 100, 7.00, 250),
-        new Produs<Mancare>("Milkshake", 330, 12.00, 300),
-        new Produs<Mancare>("Cafea", 0, 6.00, 250),
-        new Produs<Mancare>("Apa plata", 0, 5.00, 500),
-        new Produs<Mancare>("Suc de portocale", 150, 10.00, 400)
     };
     for (size_t i = 0; i < mancare.size(); ++i) {
         meniu->get_lista() = *mancare[i] + meniu->get_lista();

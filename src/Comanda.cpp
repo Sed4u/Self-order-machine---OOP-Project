@@ -33,7 +33,6 @@ void Comanda::adauga_element(Meniu *meniu, const unsigned int id) {
                     cin >> cantitate;
 
                     if (cantitate == 0) {
-                        delete it->first;
                         lista.erase(it);
                     } else {
                         it->second = cantitate;
@@ -48,7 +47,8 @@ void Comanda::adauga_element(Meniu *meniu, const unsigned int id) {
             cout << found_elem->getNume() << " - Cantitate: ";
             cin >> cantitate;
 
-            lista.emplace_back(found_elem, cantitate);
+            auto * point = found_elem;
+            lista.emplace_back(point, cantitate);
         }
     } else {
         cout << "Elementul cu id-ul " << id << " nu a fost gasit!" << endl;
@@ -103,7 +103,6 @@ void Comanda::modificaCantitate() {
         cin >> cantitate;
 
         if (cantitate == 0) {
-            delete found_elem->first;
             lista.erase(remove_if(lista.begin(), lista.end(), [found_elem](const pair<Element *, unsigned int> &e) {
                 return &e == found_elem;
             }), lista.end());
@@ -119,7 +118,7 @@ void Comanda::modificaCantitate() {
 void Comanda::confirmaComanda(Staff &staff) {
     cout << "\t1. Plateste\n\t2. Anuleaza comanda\n";
     unsigned int optiune;
-    cout << "Opriune: ";
+    cout << "Optiune: ";
     cin >> optiune;
     if (optiune == 1) {
         if(total > 0) {
@@ -129,12 +128,10 @@ void Comanda::confirmaComanda(Staff &staff) {
         else {
             cout << "Comanda invalida! Comanda ta a fost anulata!\n";
             count--;
-            delete this;
         }
     } else if (optiune == 2) {
         cout << "Comanda a fost anulata!\n";
         count--;
-        delete this;
     }
 }
 
