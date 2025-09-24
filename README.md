@@ -1,20 +1,48 @@
-# Automat pentru comandarea de mâncare fast food
+# Fast Food Self-Order Machine (CLI Simulation)
 
-## Descriere funcționaliăți proiect
-## Funcționalități clienți:
-- permiterea plasării comenzilor
-- alegerea locației servirii (în restaurant/la pachet)
-- posibilitatea adăugării produselor disponibile în comanda curentă
-- posibilitatea modificării/ștergerii produselor din comandă
-- plata/anularea comenzii
-- vizualizarea statusului comenzii (gata/în pregătire)
+This project simulates a self-order machine for a fast food restaurant, providing an interactive command-line interface (CLI) for both customers and staff. The application is written in modern C++ and demonstrates object-oriented design, templates and design patterns.
 
-## Funcționalități angajați:
-- accesul utilizând o parolă (ciscosecpa55)
-- opțiune de adăugare a unui nou element în meniu
-- opțiune de modificare a unui element existent în meniu
-- opțiunte pentru ștergerea unui element din meniu
-- update-ul status-ului unei comenzi (gata/în pregătire)
+## Features
+
+### For Customers
+- **Place Orders:** Browse the menu and add food or drinks to your order.
+- **Modify Orders:** Change quantities or remove items before finalizing.
+- **Choose Serving Location:** Select between dine-in or takeaway.
+- **Order Status:** View the status of your order (ready/in preparation).
+- **Payment/Cancel:** Pay for your order or cancel it at any time.
+
+### For Staff
+- **Password-Protected Access:** Staff functions require authentication.
+- **Menu Management:** Add, modify, or remove menu items (food/drinks).
+- **Order Status Update:** Change the status of any order.
+- **View Orders:** Display all current orders and their statuses.
+
+## Technical Overview
+
+- **No GUI:** All interactions are via the CLI for simplicity and portability.
+- **Object-Oriented Design:** Core entities include `Element`, `Produs`, `Meniu`, `Comanda`, `Staff`, and `Interfata`.
+- **Singleton Pattern:** Used for menu and staff management.
+- **Factory Pattern:** Used for creating menu items.
+- **Templates:** Menu items are implemented as template classes for food and drinks.
+- **Exception Handling:** Robust input validation and error handling.
+- **Static Members:** Used for unique IDs and singleton instances.
+- **STL Containers:** Vectors and pairs are used for managing lists and orders.
+- **Algorithms:** Sorting and searching are performed using STL algorithms and lambdas.
+
+## File Structure
+
+- main.cpp: Entry point; initializes menu and staff, starts the CLI.
+- include: Header files for all classes.
+- src: Implementation files for all classes.
+- tastatura.txt: Example input file for automated CLI testing.
+- CMakeLists.txt: Build configuration.
+
+## Notes
+
+- All data is stored in memory; there is no persistent storage.
+- The project is designed for educational purposes, demonstrating C++ OOP, templates, and design patterns.
+
+---
 
 ## Instrucțiuni de compilare
 
